@@ -2,9 +2,9 @@
 require 'braintree-php-3.10.0/lib/Braintree.php';
 
 Braintree_Configuration::environment('sandbox');
-Braintree_Configuration::merchantId('fsjn4s3f2n24qbkc');
-Braintree_Configuration::publicKey('7yy3x845kxrghjnb');
-Braintree_Configuration::privateKey('972806a4d585aea8f99e1d56de2004a3');
+Braintree_Configuration::merchantId('secret');
+Braintree_Configuration::publicKey('secret');
+Braintree_Configuration::privateKey('secret');
 
 $clientToken = Braintree_ClientToken::generate();
 
@@ -15,12 +15,18 @@ $nonce = $_POST["payment_method_nonce"];
 error_log("nonce is: " . $nonce);   
 
 $result = Braintree_Transaction::sale([
-  'amount' => '777.00',
+  'amount' => $_POST["amount"],
   'paymentMethodNonce' => $nonce,
   'options' => [
     'submitForSettlement' => True
   ]
 ]);
+
+if($result->success){
+	$transaction = $result->transaction;
+	error_log("transaction status is: " . $transaction->status);
+	// echo($result->success)
+}
 
 // $ldap = "ldap://localhost:8888";
 // $ds = ldap_connect($ldap, 389);  
