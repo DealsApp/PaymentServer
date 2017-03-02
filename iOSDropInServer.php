@@ -2,11 +2,13 @@
 require 'braintree-php-3.10.0/lib/Braintree.php';
 
 Braintree_Configuration::environment('sandbox');
-Braintree_Configuration::merchantId('secret');
-Braintree_Configuration::publicKey('secret');
-Braintree_Configuration::privateKey('secret');
+Braintree_Configuration::merchantId('k8cqxzf43pkmt3vk');
+Braintree_Configuration::publicKey('d5nfy46p5m5rj2jj');
+Braintree_Configuration::privateKey('ec98ec5d3511ca20d14414882f25eac5');
 
-$clientToken = Braintree_ClientToken::generate();
+$clientToken = Braintree_ClientToken::generate([
+	'customerId' => 24296457	//Hardcoded CustomerId for David Chen
+]);
 
 echo ($clientToken);
 
